@@ -12,11 +12,17 @@
 // ---------------------------------------
 
 import CategoryView from "./CategoryView.js";
+import ProductView from "./ProductView.js";
+
+
 document.addEventListener('DOMContentLoaded', ()=>{
     // setapp categories for first time :
-    CategoryView.setApp()
+    CategoryView.setApp();
+    ProductView.setApp()
     console.log(CategoryView);
     //creat categories Options
     CategoryView.creatCategoiresList()
+    // 
+    ProductView.creatProductsList(ProductView.products )
 
 })

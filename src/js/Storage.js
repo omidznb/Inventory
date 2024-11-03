@@ -46,7 +46,7 @@ static getAllCategories() {
 // product , category => localStorage =>
 const savedCategories = JSON.parse(localStorage.getItem('category')) || []; 
 //sort => desending
-const sortedCategories = savedCategories.Sort((a,b) =>{
+const sortedCategories = savedCategories.sort((a,b) =>{
     return new Date(a.createdAt) > new Date(b.createdAt ) ? -1 : 1 ;
 });
 return sortedCategories;
@@ -70,17 +70,22 @@ static saveCategory(categoryToSave){
    }
    localStorage.setItem("category",JSON.stringify(savedCategories))
 }
-static getAllproduct(){
+static getAllproduct(sort = "newest"){
     // product , category => localStorage =>
 const savedproducts = JSON.parse(localStorage.getItem('products')) || []; 
 //sort => desending
-return savedproducts.Sort((a,b)=>{
-    return new Date(a.createdAt) > new Date(b.createdAt ) ? -1 : 1 ;
+return savedproducts.sort((a,b)=>{
+    if(sort=== "newest"){
+      return new Date(a.createdAt) > new Date(b.createdAt ) ? -1 : 1 ;
+    }
+    else if(sort="oldest"){
+      return new Date(a.createdAt) > new Date(b.createdAt ) ? 1 : -1 ;
+    }
 });
 
 }
 
-static saveProducts(productToSave){
+static savedProducts(productToSave){
     const savedproducts = Storage.getAllproduct();
     // edid => be saved 
     //new ==> be saved 
@@ -92,9 +97,9 @@ static saveProducts(productToSave){
    existedItem.category= productToSave.category
    }else{
     // for creating new 
-    categoryToSave.id = new Date().getTime();
-    categoryToSave.createdAt= new Date().toISOString;
-    savedproducts.push(categoryToSave)
+    productToSave.id = new Date().getTime();
+    productToSave.createdAt= new Date().toISOString;
+    savedproducts.push(productToSave)
    }
    localStorage.setItem("product",JSON.stringify(savedproducts))
 }
