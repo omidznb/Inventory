@@ -76,16 +76,16 @@ const savedproducts = JSON.parse(localStorage.getItem('products')) || [];
 //sort => desending
 return savedproducts.sort((a,b)=>{
     if(sort=== "newest"){
-      return new Date(a.createdAt) > new Date(b.createdAt ) ? -1 : 1 ;
+      return new Date(a.createdAt) > new Date(b.createdAt ) ? 1 : -1 ;
     }
     else if(sort="oldest"){
-      return new Date(a.createdAt) > new Date(b.createdAt ) ? 1 : -1 ;
+      return new Date(a.createdAt) > new Date(b.createdAt ) ? -1 : 1 ;
     }
 });
 
 }
 
-static savedProducts(productToSave){
+static saveProducts(productToSave){
     const savedproducts = Storage.getAllproduct();
     // edid => be saved 
     //new ==> be saved 
@@ -101,6 +101,14 @@ static savedProducts(productToSave){
     productToSave.createdAt= new Date().toISOString;
     savedproducts.push(productToSave)
    }
-   localStorage.setItem("product",JSON.stringify(savedproducts))
+   localStorage.setItem("products",JSON.stringify(savedproducts))
+}
+static deleteProduct(id){
+  const savedProducts = Storage.getAllproduct();
+  console.log(typeof id);
+  const filteredProducts= savedProducts.filter((p)=> p.id != parseInt(id)); // for converting to number
+  localStorage.setItem('products',JSON.stringify(filteredProducts))
+
+
 }
 }

@@ -4,10 +4,16 @@ import Storage from "./Storage.js";
 const categoryTitle = document.querySelector('#category-title');
 const categoryDescription = document.querySelector('#category-description');
 const addNewCategoryBtn = document.querySelector('#add-new-category')
+const toggleAddCategoryBtn = document.getElementById('toggle-add-category')
+const categoryWrapper = document.getElementById('category-wrapper')
+const cancelAddCategory = document.getElementById('cancel-add-category')
+
 
 class CategoryView{
     constructor(){
         addNewCategoryBtn.addEventListener('click', (e) => this.addNewCategory(e))
+        toggleAddCategoryBtn.addEventListener('click',(e)=> this.toggleAddCategory(e))
+        cancelAddCategory.addEventListener('click',(e)=> this.cancelAddCategory())
         this.categories=[]
     }
 
@@ -22,6 +28,8 @@ class CategoryView{
      this.creatCategoiresList()
      categoryTitle.value='';
      categoryTitle.value=''
+     categoryWrapper.classList.add('hidden');
+     toggleAddCategoryBtn.classList.remove('hidden')
 
 
     }
@@ -39,6 +47,20 @@ class CategoryView{
        const categoryDOM=  document.getElementById("product-category")
        categoryDOM.innerHTML= result
     }
+
+    toggleAddCategory(e){
+     e.preventDefault()
+     categoryWrapper.classList.remove('hidden');
+     toggleAddCategoryBtn.classList.add('hidden')
+    }
+
+    cancelAddCategory(e){
+    e.preventDefault()
+    categoryWrapper.classList.add('hidden');
+    toggleAddCategoryBtn.classList.remove('hidden')
+    }
+
+    
 }
 
 
